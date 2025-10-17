@@ -1,0 +1,25 @@
+{
+  "": "How many seconds to wait between setting each package's trusted publishers, to avoid npm's rate limiting",
+  "slowdown": 5,
+
+  "": "The npm username. You will have to type it yourself if not provided",
+  "npm_username": "nicolo-ribaudo",
+
+  "": "The env var where to read your npm password from. You will have to type it yourself if not provided",
+  "npm_password_env_var": "NPM_PASSWORD",
+
+  "": "See https://docs.npmjs.com/trusted-publishers#for-github-actions . The gh_environment is optional",
+  "gh_owner": "babel",
+  "gh_repo": "babel",
+  "gh_workflow": "release.yml",
+  "gh_environment": "npm",
+
+  "packages": [
+    "@babel/core",
+    ["@babel/parser", {
+      "": "You can have per-package overrides of the `gh_*` options like this. Unspecified options fallback to the top-level value",
+      "gh_repo": "babel"
+    }],
+    "@babel/types"
+  ]
+}
