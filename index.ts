@@ -40,14 +40,19 @@ for (const pkg of config.packages) {
   });
 }
 
+async function enterData(selector: string, data: string) {
+  await page.click(selector);
+  await page.type(selector, data);
+}
+
 async function login(username?: string, password?: string) {
   await page.goto("https://www.npmjs.com/login");
   if (username && password) {
-    await page.type("#login_username", username);
-    await page.type("#login_password", password);
+    await enterData("#login_username", username);
+    await enterData("#login_password", password);
     await page.click('#login button[type="submit"]');
   } else if (username) {
-    await page.type("#login_username", username);
+    await enterData("#login_username", username);
     await page.focus("#login_password");
   } else if (password) {
     await page.type("#login_password", password);
@@ -76,11 +81,11 @@ async function setupPackage(name: string, gh_owner: string, gh_repo: string, gh_
   await page.click(`button[aria-label="Add Trusted Publisher connection for GitHub Actions"]`);
   await page.waitForSelector("#oidc_repositoryOwner");
 
-  await page.type("#oidc_repositoryOwner", gh_owner);
-  await page.type("#oidc_repositoryName", gh_repo);
-  await page.type("#oidc_workflowName", gh_workflow);
+  await enterData("#oidc_repositoryOwner", gh_owner);
+  await enterData("#oidc_repositoryName", gh_repo);
+  await enterData("#oidc_workflowName", gh_workflow);
   if (gh_environment) {
-    await page.type("#oidc_githubEnvironmentName", gh_environment);
+    await enterData("#oidc_githubEnvironmentName", gh_environment);
   }
 
   await page.click('#oidc button[type="submit"]');
